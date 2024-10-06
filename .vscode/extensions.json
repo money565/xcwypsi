@@ -1,0 +1,20 @@
+{
+  "recommendations": [
+    "Vue.volar",
+    "steoates.autoimport",
+    "EditorConfig.EditorConfig",
+    "jingwang37.element-plus-snippets",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "lokalise.i18n-ally",
+    "christian-kohler.path-intellisense",
+    "voorjaar.windicss-intellisense",
+    "sdras.vue-vscode-snippets",
+    "dariofuzinato.vue-peek",
+    "vscode-icons-team.vscode-icons",
+    "antfu.unocss",
+    "stylelint.vscode-stylelint",
+    "christian-kohler.path-intellisense",
+    "esbenp.prettier-vscode"
+  ]
+}
