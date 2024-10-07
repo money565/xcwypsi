@@ -6,6 +6,6 @@ export default {
   children: [{
     path: 'dialog',
     name: 'dialog',
-    component: () => import('@/views/components/dialog/index.vue'),
+    component: () => import('@/views/dialog/index.vue'),
   }],
 } as RouteRecordRaw

@@ -22,8 +22,18 @@ const sysGlobalConfig: IGlobalConfig = {
     subMenuCollaspe: false,
   },
   theme: {
-    logoBgColor: '#FFFFFF',
-    logoTextColor: '#000000',
+    // -----Logo-------
+    logoBgColor: '#cad7fe',
+    logoTextColor: '#ffffff',
+    // -----次菜单------
+    menuBgColor: 'linear-gradient(to right, #c9d6ff,#e2e2e2)', // 次菜单背景色
+    menuActiveBgColor: '#cad7fe', // 选中次菜单背景色
+    menuHoverBgColor: '#cad7fe', // 鼠标经过次菜单背景色
+    menuTextColor: '#2f4f4f', // 次菜单文字色
+    menuActiveTextColor: '#2f4f4f', // 选中次菜单文字颜色
+    menuHoverTextColor: '#2f4f4f', // 鼠标经过次菜文字色
+    // -----顶部菜单-----
+    mainMenuBgColor: '#CAFF70',
   },
 }
 

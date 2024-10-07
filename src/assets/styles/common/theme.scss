@@ -8,4 +8,16 @@
     --xt-top-nav-height:80px;//top（顶部导航栏）的高度
     --xt-toolbar-height:50px;//工具栏的高度
     --xt-tabbar-height:50px; //历史菜单高度
+
+    //暗黑模式下的颜色
+    //logo区域
+    --xt-sub-logo-bg-color: #060D12;
+    --xt-sub-logo-text-color: #ffffff;
+    //侧边栏配色
+    --xt-sub-menu-bg-color: #2c1212;
+    --xt-sub-menu-text-color: #7a6b7e;
+    --xt-sub-menu-hover-bg-color: #14424b;
+    --xt-sub-menu-hover-text-color: #ffffff;
+    --xt-sub-menu-active-bg-color: #14424b;
+    --xt-sub-menu-active-text-color: #ffffff;
 }

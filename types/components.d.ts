@@ -7,7 +7,10 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    Dialog: typeof import('./../src/views/components/dialog/index.vue')['default']
+    copy: typeof import('./../src/views/demo copy/index.vue')['default']
+    Demo: typeof import('./../src/views/demo/index.vue')['default']
+    Demo2: typeof import('./../src/views/demo2/index.vue')['default']
+    Dialog: typeof import('./../src/views/dialog/index.vue')['default']
     Home: typeof import('./../src/views/home/index.vue')['default']
     Login: typeof import('./../src/views/login/index.vue')['default']
     Menu: typeof import('./../src/views/menu/index.vue')['default']
