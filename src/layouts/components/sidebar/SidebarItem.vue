@@ -5,7 +5,7 @@ import { useAppConfigStore } from '@/stores/app'
 // import useLocalI18n from '@/hooks/useLocalI18n'
 
 interface IProps {
-  menu: Menu.recordRaw
+  menu: Menu.recordRaw | RouteRecordRaw
 }
 
 withDefaults(defineProps<IProps>(), {})

@@ -5,7 +5,7 @@ import privateRoutes from '@/router/privateRoutes'
 
 export const usePermissionStore = defineStore('permission', () => {
   // 过滤完成的路由表（固定的路由+动态路由）
-  let routes = [] as RouteRecordRaw[]
+  const routes = ref<RouteRecordRaw[]>([])
 
   const allPrivateChildrenRoutes = computed(() => {
     // 第一种写法
@@ -19,10 +19,10 @@ export const usePermissionStore = defineStore('permission', () => {
   })
 
   function setRoutes(needDynamicallyAddRoutes: RouteRecordRaw[]) {
-    routes = [...constantRouter, ...needDynamicallyAddRoutes] // 合并路由
+    routes.value = [...constantRouter, ...needDynamicallyAddRoutes] // 合并路由
   }
 
-  function filterPermissionRoutes() { // 过滤权限路由
+  function filterPermissionRoutes(): Promise<RouteRecordRaw[]> { // 过滤权限路由
     const useAppConfig = useAppConfigStore()
     return new Promise((reslove, reject) => {
       try {

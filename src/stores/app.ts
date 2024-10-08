@@ -1,4 +1,4 @@
-import sysGlobalConfig from '@/app'
+import sysGlobalConfig from '@/apps/app'
 import { APP_CONFIG, STORAGE_PREFIX } from '@/config/chache'
 
 export const useAppConfigStore = defineStore('app', () => {

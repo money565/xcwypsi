@@ -16,10 +16,9 @@ const constantRoutes: RouteRecordRaw[] = [
     path: '/',
     name: 'root',
     component: () => import('@/layouts/index.vue'),
-    redirect: '/home',
     children: [
       {
-        path: 'home',
+        path: '',
         name: 'home',
         component: () => import('@/views/home/index.vue'),
       },

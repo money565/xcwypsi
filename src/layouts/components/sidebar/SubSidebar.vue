@@ -1,6 +1,7 @@
 <script setup lang="ts" name="SubSidebar">
 import logo from '../logo/index.vue'
 import SubSideItem from './SidebarItem.vue'
+import useMenus from '@/hooks/useMenus'
 import { useAppConfigStore } from '@/stores/app'
 
 const useAppConfig = useAppConfigStore()
@@ -19,107 +20,99 @@ const subSidebarWidth = computed(() => {
   }
 })
 
-const menus = [{
-  path: '/demo1',
-  meta: {
-    icon: 'WarehouseManagement',
-    title: '仓库管理',
-  },
-}, {
-  path: '/demo2',
-  meta: {
-    icon: 'SupplierManagement',
-    title: '供应商管理',
-  },
-}, {
-  path: '/demo3',
-  meta: {
-    icon: 'MaterialManagement',
-    title: '存货管理',
-  },
-}, {
-  path: '/demo4',
-  meta: {
-    icon: 'PlanPurchase',
-    title: '日常采购',
-  },
-}, {
-  path: '/demo5',
-  meta: {
-    icon: 'OrdersList',
-    title: '要货单',
-  },
-}, {
-  path: '/demo6',
-  meta: {
-    icon: 'Outbound',
-    title: '出库单',
-  },
-}, {
-  path: '/demo7',
-  meta: {
-    icon: 'Records',
-    title: '出入库记录',
-  },
-}, {
-  path: '/demo8',
-  meta: {
-    icon: 'WarehouseStock',
-    title: '当前库存',
-  },
-}, {
-  path: '/demo9',
-  meta: {
-    icon: 'IssueInventory',
-    title: '库存发放',
-  },
-}, {
-  path: '/demo10',
-  meta: {
-    icon: 'Procure',
-    title: '计划内采购',
-  },
-}, {
-  path: '/demo11',
-  meta: {
-    icon: 'Payment',
-    title: '付款单',
-  },
-}, {
-  path: '/demo12',
-  meta: {
-    icon: 'Audit',
-    title: '审核',
-  },
-}, {
-  path: '/demo13',
-  meta: {
-    icon: 'switch',
-    title: '阈值设定',
-  },
-}, {
-  path: '/demo14',
-  meta: {
-    icon: 'echarts',
-    title: '数据图表',
-  },
-}, {
-  path: '/demo15',
-  meta: {
-    icon: 'ai',
-    title: 'AI智能',
-  },
-}]
+const { menus } = useMenus()!
 
-watch(() => useAppConfig.getTheme.menuBgColor, (n: any) => {
-  console.log('颜色改变', n)
-}, { immediate: true })
-
-onMounted(() => {
-  setTimeout(() => {
-    console.log('颜色', submenungcolor.value)
-  }, 2000)
-})
+// const menus = [{
+//   path: '/demo1',
+//   meta: {
+//     icon: 'WarehouseManagement',
+//     title: '仓库管理',
+//   },
+// }, {
+//   path: '/demo2',
+//   meta: {
+//     icon: 'SupplierManagement',
+//     title: '供应商管理',
+//   },
+// }, {
+//   path: '/demo3',
+//   meta: {
+//     icon: 'MaterialManagement',
+//     title: '存货管理',
+//   },
+// }, {
+//   path: '/demo4',
+//   meta: {
+//     icon: 'PlanPurchase',
+//     title: '日常采购',
+//   },
+// }, {
+//   path: '/demo5',
+//   meta: {
+//     icon: 'OrdersList',
+//     title: '要货单',
+//   },
+// }, {
+//   path: '/demo6',
+//   meta: {
+//     icon: 'Outbound',
+//     title: '出库单',
+//   },
+// }, {
+//   path: '/demo7',
+//   meta: {
+//     icon: 'Records',
+//     title: '出入库记录',
+//   },
+// }, {
+//   path: '/demo8',
+//   meta: {
+//     icon: 'WarehouseStock',
+//     title: '当前库存',
+//   },
+// }, {
+//   path: '/demo9',
+//   meta: {
+//     icon: 'IssueInventory',
+//     title: '库存发放',
+//   },
+// }, {
+//   path: '/demo10',
+//   meta: {
+//     icon: 'Procure',
+//     title: '计划内采购',
+//   },
+// }, {
+//   path: '/demo11',
+//   meta: {
+//     icon: 'Payment',
+//     title: '付款单',
+//   },
+// }, {
+//   path: '/demo12',
+//   meta: {
+//     icon: 'Audit',
+//     title: '审核',
+//   },
+// }, {
+//   path: '/demo13',
+//   meta: {
+//     icon: 'switch',
+//     title: '阈值设定',
+//   },
+// }, {
+//   path: '/demo14',
+//   meta: {
+//     icon: 'echarts',
+//     title: '数据图表',
+//   },
+// }, {
+//   path: '/demo15',
+//   meta: {
+//     icon: 'ai',
+//     title: 'AI智能',
+//   },
+// }]
 </script>
 
 <template>

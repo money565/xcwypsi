@@ -11,12 +11,12 @@ const mainmenuactivebgcolor = computed(() => useAppConfig.getTheme.mainMenuActiv
 const mainmenuactivetextcolor = computed(() => useAppConfig.getTheme.mainMenuActiveTextColor)
 
 const allMainMenu = [{
-  title: '演示1',
+  title: '业务',
   icon: 'demo',
   parentIndex: 0,
   children: [{}],
 }, {
-  title: '演示2',
+  title: '数据',
   icon: 'demo2',
   parentIndex: 1,
   children: [{}],
@@ -43,7 +43,7 @@ function clickMainMenu(index: number) {
             <el-icon v-if="item.icon" :size="20">
               <svg-icon :name="item.icon" />
             </el-icon>
-            <span class="truncate w-full text-center" :title="item.title">{{ item.title }}</span>
+            <span class="truncate w-full text-center font-100" :title="item.title">{{ item.title }}</span>
           </li>
         </template>
       </ul>
