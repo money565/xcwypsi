@@ -1,7 +1,9 @@
 <script lang="ts" setup  name="SelectColor">
 import { useAppConfigStore } from '@/stores/app'
 
-type Key = 'logoBgColor' | 'logoTextColor' | 'menuBgColor' | 'menuActiveBgColor' | 'menuHoverBgColor' | 'menuTextColor' | 'menuActiveTextColor' | 'menuHoverTextColor'
+type Key = 'logoBgColor' | 'logoTextColor'
+  | 'menuBgColor' | 'menuActiveBgColor' | 'menuHoverBgColor' | 'menuTextColor' | 'menuActiveTextColor' | 'menuHoverTextColor'
+  | 'mainMenuBgColor' | 'mainMenuActiveBgColor' | 'mainMenuHoverBgColor' | 'mainMenuTextColor' | 'mainMenuActiveTextColor' | 'mainMenuHoverTextColor'
 interface IThemeData {
   title: string
   key: Key
@@ -19,6 +21,34 @@ const logoThemeData = computed<IThemeData[]>(() => {
     title: '文字颜色',
     key: 'logoTextColor',
     value: useAppConfig.getTheme.logoTextColor,
+  }]
+})
+
+const mainMenuThemeData = computed<IThemeData[]>(() => {
+  return [{
+    title: '背景色',
+    key: 'mainMenuBgColor',
+    value: useAppConfig.getTheme.mainMenuBgColor,
+  }, {
+    title: '选中背景色',
+    key: 'mainMenuActiveBgColor',
+    value: useAppConfig.getTheme.mainMenuActiveBgColor,
+  }, {
+    title: '鼠标经过背景色',
+    key: 'mainMenuHoverBgColor',
+    value: useAppConfig.getTheme.mainMenuHoverBgColor,
+  }, {
+    title: '文字色',
+    key: 'mainMenuTextColor',
+    value: useAppConfig.getTheme.mainMenuTextColor,
+  }, {
+    title: '选中文字颜色',
+    key: 'mainMenuActiveTextColor',
+    value: useAppConfig.getTheme.mainMenuActiveTextColor,
+  }, {
+    title: '鼠标经文字色',
+    key: 'mainMenuHoverTextColor',
+    value: useAppConfig.getTheme.mainMenuHoverTextColor,
   }]
 })
 
@@ -85,6 +115,21 @@ defineExpose({
           <el-color-picker
             v-model="item.value" @change="$event => themeChange
               (item.key, $event as string)"
+          />
+        </section>
+      </div>
+      <el-divider>主导航</el-divider>
+      <div class="flex">
+        <section
+          v-for="item in mainMenuThemeData"
+          :key="item.value"
+          class="color-select-content"
+        >
+          <span class="mb-1">{{ item.title }}</span>
+          <el-color-picker
+            v-model="item.value"
+            show-alpha
+            @change="$event => themeChange(item.key, $event as string)"
           />
         </section>
       </div>

@@ -37,8 +37,8 @@ const title = ref(import.meta.env.VITE_APP_TITLE)
 <style lang="scss" scoped>
   .logo{
     width:inherit;
-    color: v-bind(logoBgColor);
-    background: v-bind(logoTextColor);
+    color: v-bind(logoTextColor);
+    background: v-bind(logoBgColor);
   }
 
   .dark .logo{

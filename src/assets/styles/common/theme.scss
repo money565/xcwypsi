@@ -2,7 +2,8 @@
     --xt-color-dark: --el-text-color-primary;//暗黑模式主题
     --xt-bg-color-dark: --el-bg-color
     --xt-main-sidebar-width:70px;//侧边主导航宽度
-    --xt-sub-sidebar-width:250px;//侧边次导航宽度
+    --xt-main-sidebar-item-height:70px;//侧边主导航组件高度
+    --xt-sub-sidebar-width:200px;//侧边次导航宽度
     --xt-sub-sidebar-collapse-width:63px;//侧边次导航收缩时宽度
     --xt-log-height:50px;//logo的高度
     --xt-top-nav-height:80px;//top（顶部导航栏）的高度
@@ -20,4 +21,11 @@
     --xt-sub-menu-hover-text-color: #ffffff;
     --xt-sub-menu-active-bg-color: #14424b;
     --xt-sub-menu-active-text-color: #ffffff;
+    // 主导航区域
+    --xt-main-menu-bg-color: #2c1212;
+    --xt-main-menu-text-color: #7a6b7e;
+    --xt-main-menu-hover-bg-color: #14424b;
+    --xt-main-menu-hover-text-color: #ffffff;
+    --xt-main-menu-active-bg-color: #14424b;
+    --xt-main-menu-active-text-color: #ffffff;
 }

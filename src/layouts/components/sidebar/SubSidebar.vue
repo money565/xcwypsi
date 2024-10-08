@@ -91,6 +91,24 @@ const menus = [{
     icon: 'Audit',
     title: '审核',
   },
+}, {
+  path: '/demo13',
+  meta: {
+    icon: 'switch',
+    title: '阈值设定',
+  },
+}, {
+  path: '/demo14',
+  meta: {
+    icon: 'echarts',
+    title: '数据图表',
+  },
+}, {
+  path: '/demo15',
+  meta: {
+    icon: 'ai',
+    title: 'AI智能',
+  },
 }]
 
 watch(() => useAppConfig.getTheme.menuBgColor, (n: any) => {

@@ -5,7 +5,9 @@ export const useAppConfigStore = defineStore('app', () => {
   const appConfig = ref({
     ...sysGlobalConfig,
   })
-
+  const getEnablePermission = computed(() => {
+    return appConfig.value.app.enablePermission
+  })
   const getLayoutMode = computed(() => {
     return appConfig.value.app.layoutMode
   })
@@ -21,7 +23,7 @@ export const useAppConfigStore = defineStore('app', () => {
   const getTheme = computed(() => {
     return appConfig.value.theme
   })
-  return { appConfig, getLayoutMode, getCollapse, getColorScheme, getTheme }
+  return { appConfig, getLayoutMode, getCollapse, getColorScheme, getTheme, getEnablePermission }
 }, {
   persist: {
     key: `${STORAGE_PREFIX}${APP_CONFIG}`,

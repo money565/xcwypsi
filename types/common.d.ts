@@ -4,6 +4,7 @@ type layoutMode = 'onlyTopNav' | 'onlySubSideNav' | 'mainSubSideNav' | 'topSubSi
 type ColorScheme = '' | 'light' | 'dark'
 
 interface IGlobalApp {
+  enablePermission: boolean
   layoutMode: LayleoutMode
   colorScheme: ColorScheme
 }
@@ -22,6 +23,11 @@ interface IGlobalTheme {
   menuHoverTextColor: string
   menuActiveTextColor: string
   mainMenuBgColor: string
+  mainMenuActiveBgColor: string
+  mainMenuHoverBgColor: string
+  mainMenuTextColor: string
+  mainMenuActiveTextColor: string
+  mainMenuHoverTextColor: string
 }
 declare interface IGlobalConfig {
   defaultLanguage: Language
@@ -38,7 +44,9 @@ declare namespace Menu{
     children?: recordRaw[]
   }
   interface recordMainRaw {
-    meta: RouteMeta
+    title: string
+    icon: string
+    parentIndex?: number
     children: recordMainRaw[]
   }
 }

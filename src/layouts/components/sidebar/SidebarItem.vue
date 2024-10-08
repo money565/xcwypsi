@@ -25,10 +25,10 @@ const menuactivetextcolor = computed(() => useAppConfig.getTheme.menuActiveTextC
   <!-- 支持渲染多级 menu 菜单 -->
   <el-sub-menu v-if="menu.children?.length" class="xt-sub-menu" :index="menu.path" popper-class="xt-popper-menu">
     <template #title>
-      <el-icon v-if="menu.meta?.icon" :size="20">
+      <el-icon v-if="menu.meta?.icon" :size="20" :title="menu.meta.title">
         <svg-icon :name="menu.meta.icon" />
       </el-icon>
-      <span class="mr-1 flex-1 truncate">{{ menu.meta.title }}</span>
+      <span class="mr-1 flex-1 truncate" :title="menu.meta.title">{{ menu.meta.title }}</span>
     </template>
     <!-- 循环渲染 -->
     <sidebar-item
@@ -40,10 +40,10 @@ const menuactivetextcolor = computed(() => useAppConfig.getTheme.menuActiveTextC
 
   <!-- 渲染 item 项 -->
   <el-menu-item v-else :index="menu.path">
-    <el-icon v-if="menu.meta?.icon" :size="20">
+    <el-icon v-if="menu.meta?.icon" :size="20" :title="menu.meta.title">
       <svg-icon :name="menu.meta.icon" />
     </el-icon>
-    <span class="truncate">{{ menu.meta.title }}</span>
+    <span class="truncate" :title="menu.meta.title">{{ menu.meta.title }}</span>
   </el-menu-item>
 </template>
 
