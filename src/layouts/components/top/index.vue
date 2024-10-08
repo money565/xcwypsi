@@ -2,6 +2,7 @@
 import SidebarItem from '../sidebar/SidebarItem.vue'
 import Logo from '../logo/index.vue'
 import { useAppConfigStore } from '@/stores/app'
+import useMenus from '@/hooks/useMenus'
 
 const useAppConfig = useAppConfigStore()
 
@@ -125,25 +126,7 @@ const darktopnavactivetextcolor = computed(() => {
   return '#D3D3D3'
 })
 
-const menus = [{
-  path: '/demo100',
-  meta: {
-    icon: 'psi',
-    title: '查看预算执行',
-  },
-}, {
-  path: '/demo101',
-  meta: {
-    icon: 'psi2',
-    title: '用户设置',
-  },
-}, {
-  path: '/demo102',
-  meta: {
-    icon: 'psi3',
-    title: '选项',
-  },
-}]
+const { menus } = useMenus()!
 
 const allMainMenu = [{
   title: '演示1',
@@ -182,8 +165,10 @@ const allMainMenu = [{
     <template v-if="useAppConfig.getLayoutMode === 'onlyTopNav'">
       <el-menu
         mode="horizontal"
+        router
+        :default-active="String($route.meta?.activeMenu) || $route.path"
         :unique-opened="true"
-        class="flex-1"
+        class="flex-1 overflow-x-auto"
       >
         <template v-for="item in menus" :key="item.path">
           <SidebarItem :menu="item" />

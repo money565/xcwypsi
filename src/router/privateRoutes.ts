@@ -1,18 +1,32 @@
 // 放置动态路由
-import demoRoutes from './modules/demo'
-import demoRoutes2 from './modules/demo2'
+import WarehouseManagement from './modules/WarehouseManagement'
+import SupplierManagement from './modules/SupplierManagement'
+import MaterialManagement from './modules/MaterialManagement'
+import PlanPurchase from './modules/PlanPurchase'
+import OrdersList from './modules/OrdersList'
+import Outbound from './modules/Outbound'
+import Records from './modules/Records'
+import WarehouseStock from './modules/WarehouseStock'
+import IssueInventory from './modules/IssueInventory'
+import Procure from './modules/Procure'
+import Payment from './modules/Payment'
+import Audit from './modules/Audit'
+import switchRouter from './modules/switchRouter'
+import echartsRouter from './modules/echartsRouter'
+import ai from './modules/ai'
+
 import type { IPrivateRoutes } from './types/privateRoutes'
 
 const privateRoutes: IPrivateRoutes[] = [
   {
-    title: '演示1',
+    title: '业务',
     icon: 'demo',
-    children: [demoRoutes],
+    children: [SupplierManagement, WarehouseManagement, MaterialManagement, Procure, Audit, PlanPurchase, OrdersList, Outbound, Records, WarehouseStock, IssueInventory, Payment],
   },
   {
-    title: '演示2',
+    title: '数据',
     icon: 'demo2',
-    children: [demoRoutes2],
+    children: [echartsRouter, ai, switchRouter],
   },
 ]
 

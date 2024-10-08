@@ -1,11 +1,36 @@
 import type { RouteRecordRaw } from 'vue-router'
+import { cloneDeep, isEmpty } from 'lodash'
 import { useAppConfigStore } from './app'
 import constantRouter from '@/router/constant'
 import privateRoutes from '@/router/privateRoutes'
+import type { IPrivateRoutes } from '@/router/types/privateRoutes'
 
+function addPrivateChildrenIndex(privateChildrenRoutes: any, parentIndex: number) {
+  privateChildrenRoutes.forEach((item: any) => {
+    item.parentIndex = parentIndex
+    if (!isEmpty(item.children)) {
+      addPrivateChildrenIndex(item.children, item.parentIndex)
+    }
+  })
+}
+function addPrivateIndex(clonePrivateRoutes: IPrivateRoutes[]) {
+  clonePrivateRoutes.forEach((item, i) => {
+    item.parentIndex = i
+    if (!isEmpty(item.children)) {
+      addPrivateChildrenIndex(item.children, item.parentIndex)
+    }
+  })
+}
 export const usePermissionStore = defineStore('permission', () => {
   // 过滤完成的路由表（固定的路由+动态路由）
-  const routes = ref<RouteRecordRaw[]>([])
+  const routes: any = ref([])
+  // 当前主菜单高亮的项目
+  const mainMenuActive = ref(0)
+
+  const addIndexPrivateRoutes = computed(() => {
+    const clonePrivateRoutes = cloneDeep(privateRoutes)
+    return addPrivateIndex(clonePrivateRoutes)
+  })
 
   const allPrivateChildrenRoutes = computed(() => {
     // 第一种写法
@@ -41,5 +66,5 @@ export const usePermissionStore = defineStore('permission', () => {
       }
     })
   }
-  return { routes, filterPermissionRoutes }
+  return { routes, filterPermissionRoutes, mainMenuActive, addIndexPrivateRoutes }
 })

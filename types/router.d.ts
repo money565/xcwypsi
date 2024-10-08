@@ -14,4 +14,8 @@ declare module 'vue-router' {
     cache?: boolean | string | string[] // 是否需要缓存
     noCache?: string | string[] // 不缓存的页面name（当cache存在才生效）
   }
+
+  interface _RouteRecordBase {
+    parentIndex?: number
+  }
 }

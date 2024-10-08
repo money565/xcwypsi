@@ -4,7 +4,7 @@
 
 <template>
   <div>
-    demo2
+    Outbound
   </div>
 </template>
 

@@ -1,5 +1,4 @@
 import type { RouteRecordRaw } from 'vue-router'
-import components from './modules/components'
 
 const constantRoutes: RouteRecordRaw[] = [
   {
@@ -22,7 +21,6 @@ const constantRoutes: RouteRecordRaw[] = [
         name: 'home',
         component: () => import('@/views/home/index.vue'),
       },
-      components,
     ],
   },
 ]

@@ -1,5 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import * as path from 'path-browserify'
+import { cloneDeep } from 'lodash'
 import { usePermissionStore } from '@/stores/permission'
 import { isEmpty } from '@/utils'
 import { useAppConfigStore } from '@/stores/app'
@@ -48,9 +49,9 @@ export default function useMenus() {
   const usePermission = usePermissionStore()
   const useAppConfig = useAppConfigStore()
   try {
-    const allMergePathRoutes = mergeRouterPath(JSON.parse(JSON.stringify(usePermission.routes)))
+    const allMergePathRoutes = mergeRouterPath(cloneDeep(usePermission.routes))
     const allSubMenu = generateMenus(allMergePathRoutes)
-    console.log(allSubMenu)
+    console.log('allSubMenu', allSubMenu)
     const menus = computed(() => {
       if (['onlyTopNav', 'onlySubSideNav', 'mainSubSideNav'].includes(useAppConfig.getLayoutMode)) {
         return allSubMenu
