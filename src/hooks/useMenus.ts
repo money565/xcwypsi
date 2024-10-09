@@ -48,29 +48,31 @@ function generateMenus(allMergePathRoutes: RouteRecordRaw[]) {
 export default function useMenus() {
   const usePermission = usePermissionStore()
   const useAppConfig = useAppConfigStore()
-  try {
-    const allMergePathRoutes = mergeRouterPath(cloneDeep(usePermission.routes))
-    const allSubMenu = generateMenus(allMergePathRoutes)
-    console.log('allSubMenu', allSubMenu)
-    const menus = computed(() => {
-      if (['onlyTopNav', 'onlySubSideNav', 'mainSubSideNav'].includes(useAppConfig.getLayoutMode)) {
-        return allSubMenu
-      }
-      else {
-        const temp = {
-          name: 'demo1',
-          path: '/demo1',
-          redirect: '/demo1/demo1-1',
-          meta: { title: '空菜单', icon: 'psi' },
-        }
-        return [temp]
+  const allMergePathRoutes = mergeRouterPath(cloneDeep(usePermission.routes))
+  const allSubMenu = generateMenus(allMergePathRoutes)
+
+  const allMainMenu = computed(() => {
+    return usePermission.addIndexPrivateRoutes.map((item) => {
+      return {
+        parentIndex: item.parentIndex,
+        title: item.title,
+        icon: item.icon,
+        children: allSubMenu.filter(k => k.parentIndex === item.parentIndex),
       }
     })
-    return {
-      menus,
+  })
+
+  console.log('usePermission', allMainMenu.value)
+  const menus = computed(() => {
+    if (['onlyTopNav', 'onlySubSideNav'].includes(useAppConfig.getLayoutMode)) {
+      return allSubMenu
     }
-  }
-  catch (error) {
-    console.log(error)
+    else {
+      return allMainMenu.value[usePermission.mainMenuActive].children
+    }
+  })
+  return {
+    menus,
+    allMainMenu,
   }
 }

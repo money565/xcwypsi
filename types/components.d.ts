@@ -10,8 +10,6 @@ declare module 'vue' {
     Ai: typeof import('./../src/views/components/ai/index.vue')['default']
     Audit: typeof import('./../src/views/components/Audit/index.vue')['default']
     copy: typeof import('./../src/views/components/dialog/index copy.vue')['default']
-    Demo: typeof import('./../src/views/demo/index.vue')['default']
-    Demo2: typeof import('./../src/views/demo2/index.vue')['default']
     Dialog: typeof import('./../src/views/components/dialog/index.vue')['default']
     Echarts: typeof import('./../src/views/components/echarts/index.vue')['default']
     Home: typeof import('./../src/views/home/index.vue')['default']

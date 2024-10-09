@@ -1,15 +1,16 @@
 import type { RouteRecordRaw } from 'vue-router'
-import { cloneDeep, isEmpty } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 import { useAppConfigStore } from './app'
 import constantRouter from '@/router/constant'
 import privateRoutes from '@/router/privateRoutes'
 import type { IPrivateRoutes } from '@/router/types/privateRoutes'
+import { isEmpty } from '@/utils'
 
-function addPrivateChildrenIndex(privateChildrenRoutes: any, parentIndex: number) {
-  privateChildrenRoutes.forEach((item: any) => {
+function addPrivateChildrenIndex(privateChildrenRoutes: RouteRecordRaw[], parentIndex: number) {
+  privateChildrenRoutes.forEach((item) => {
     item.parentIndex = parentIndex
     if (!isEmpty(item.children)) {
-      addPrivateChildrenIndex(item.children, item.parentIndex)
+      addPrivateChildrenIndex(item.children!, item.parentIndex)
     }
   })
 }
@@ -20,10 +21,11 @@ function addPrivateIndex(clonePrivateRoutes: IPrivateRoutes[]) {
       addPrivateChildrenIndex(item.children, item.parentIndex)
     }
   })
+  return clonePrivateRoutes
 }
 export const usePermissionStore = defineStore('permission', () => {
   // 过滤完成的路由表（固定的路由+动态路由）
-  const routes: any = ref([])
+  const routes = ref<RouteRecordRaw[]>([])
   // 当前主菜单高亮的项目
   const mainMenuActive = ref(0)
 
@@ -34,10 +36,10 @@ export const usePermissionStore = defineStore('permission', () => {
 
   const allPrivateChildrenRoutes = computed(() => {
     // 第一种写法
-    return privateRoutes.map(item => item.children).flat()
+    return addIndexPrivateRoutes.value.map(item => item.children).flat()
     // 第二种写法
     // let routes: RouteRecordRaw[] = []
-    // privateRoutes.forEach((item) => {
+    // addIndexPrivateRoutes.value.forEach((item) => {
     //   routes = [...routes, ...item.children]
     // })
     // return routes
@@ -66,5 +68,10 @@ export const usePermissionStore = defineStore('permission', () => {
       }
     })
   }
-  return { routes, filterPermissionRoutes, mainMenuActive, addIndexPrivateRoutes }
+
+  function changeMainMenu(index: number) {
+    mainMenuActive.value = index
+  }
+
+  return { routes, filterPermissionRoutes, mainMenuActive, addIndexPrivateRoutes, changeMainMenu }
 })

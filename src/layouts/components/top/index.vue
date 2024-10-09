@@ -3,6 +3,7 @@ import SidebarItem from '../sidebar/SidebarItem.vue'
 import Logo from '../logo/index.vue'
 import { useAppConfigStore } from '@/stores/app'
 import useMenus from '@/hooks/useMenus'
+import { usePermissionStore } from '@/stores/permission'
 
 const useAppConfig = useAppConfigStore()
 
@@ -126,19 +127,11 @@ const darktopnavactivetextcolor = computed(() => {
   return '#D3D3D3'
 })
 
-const { menus } = useMenus()!
-
-const allMainMenu = [{
-  title: '演示1',
-  icon: 'demo',
-  parentIndex: 0,
-  children: [{}],
-}, {
-  title: '演示2',
-  icon: 'demo2',
-  parentIndex: 1,
-  children: [{}],
-}]
+const { menus, allMainMenu } = useMenus()!
+const usePermission = usePermissionStore()
+function clickMainMenu(parentIndex: number) {
+  usePermission.changeMainMenu(parentIndex)
+}
 </script>
 
 <template>
@@ -152,7 +145,11 @@ const allMainMenu = [{
         class="flex-1 main-menu"
       >
         <template v-for="(item, index) in allMainMenu" :key="index">
-          <el-menu-item v-if="item.children.length" :index="String(item.parentIndex)">
+          <el-menu-item
+            v-if="item.children.length"
+            :index="String(item.parentIndex)"
+            @click="clickMainMenu(item.parentIndex!)"
+          >
             <el-icon v-if="item.icon" :size="20">
               <svg-icon :name="item.icon" />
             </el-icon>

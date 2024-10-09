@@ -1,6 +1,8 @@
 <script setup lang="ts" name="mainSidebar">
 import logo from '../logo/index.vue'
 import { useAppConfigStore } from '@/stores/app'
+import useMenus from '@/hooks/useMenus'
+import { usePermissionStore } from '@/stores/permission'
 
 const useAppConfig = useAppConfigStore()
 const mainmenubgcolor = computed(() => useAppConfig.getTheme.mainMenuBgColor)
@@ -10,20 +12,11 @@ const mainmenuhovertextcolor = computed(() => useAppConfig.getTheme.mainMenuHove
 const mainmenuactivebgcolor = computed(() => useAppConfig.getTheme.mainMenuActiveBgColor)
 const mainmenuactivetextcolor = computed(() => useAppConfig.getTheme.mainMenuActiveTextColor)
 
-const allMainMenu = [{
-  title: '业务',
-  icon: 'demo',
-  parentIndex: 0,
-  children: [{}],
-}, {
-  title: '数据',
-  icon: 'demo2',
-  parentIndex: 1,
-  children: [{}],
-}]
-const active = ref<number>()
-function clickMainMenu(index: number) {
-  active.value = index
+const usePermission = usePermissionStore()
+const { allMainMenu } = useMenus()
+
+function clickMainMenu(parentIndex: number) {
+  usePermission.changeMainMenu(parentIndex)
 }
 </script>
 
@@ -37,8 +30,8 @@ function clickMainMenu(index: number) {
             v-if="item.children.length"
             class="rounded-lg cursor-pointer flex flex-col h-[var(--xt-main-sidebar-item-height)] mx-2
             mb-1 justify-center items-center main-menu-item px-1"
-            :class="index === active ? 'is-active' : ''"
-            @click="clickMainMenu(index)"
+            :class="usePermission.mainMenuActive === item.parentIndex ? 'is-active' : ''"
+            @click="clickMainMenu(item.parentIndex!)"
           >
             <el-icon v-if="item.icon" :size="20">
               <svg-icon :name="item.icon" />

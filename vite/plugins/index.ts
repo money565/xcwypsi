@@ -22,6 +22,7 @@ export default function setupVitePlugin(viteEnv: Record<string, string>, isBuild
   plugins.push(setupExtendPlus())
   plugins.push(setupSvgIcon(isBuild))
   plugins.push(setupMock(isBuild))
+  // eslint-disable-next-line ts/no-unused-expressions
   VITE_USE_MOCK === 'true' && plugins.push(setupMock(isBuild))
   return plugins
 }
