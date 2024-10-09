@@ -5,6 +5,8 @@ export const useUserStore = defineStore('user', () => {
   const token = ref('')
   const userInfo = ref<any>(null)
 
+  const getToken = computed(() => token.value)
+
   function login() {
     return loginApi().then((res) => {
       token.value = res.result.token
@@ -14,7 +16,7 @@ export const useUserStore = defineStore('user', () => {
       // })
     })
   }
-  return { token, userInfo, login }
+  return { token, userInfo, login, getToken }
 }, {
   persist: {
     key: `${STORAGE_PREFIX}${USER}`,

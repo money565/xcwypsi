@@ -20,6 +20,7 @@ const logoTextColor = computed(() => {
 })
 
 const title = ref(import.meta.env.VITE_APP_TITLE)
+const avatarUrl = '/src/assets/icons/logo.png'
 </script>
 
 <template>
@@ -29,7 +30,7 @@ const title = ref(import.meta.env.VITE_APP_TITLE)
     class="logo h-[var(--xt-log-height)] flex items-center justify-center flex-shrink-0
   px-2"
   >
-    <el-avatar v-if="showLogoImage" :size="40" shape="square" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+    <el-avatar v-if="showLogoImage" :size="40" shape="square" :src="avatarUrl" />
     <span v-if="showLogoText" class="font-bold truncate ml-2">{{ title }}</span>
   </router-link>
 </template>

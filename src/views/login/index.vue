@@ -2,7 +2,6 @@
 // import axios from 'axios'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useUserStore } from '@/stores/user'
-import router from '@/router'
 
 const loginRules = reactive<FormRules>({
   account: [
@@ -19,13 +18,24 @@ const loginForm = reactive({
   account: '',
   password: '',
 })
-// const router = useRouter()
+
+const route = useRoute()
+const router = useRouter()
 const useUser = useUserStore()
+const submitLoading = ref(false)
+const redirect = ref(route.query.redirectPath as string ?? '/')
+
 function handleLogin() {
   loginFormRef.value?.validate((valid) => {
     if (valid) {
+      if (submitLoading.value) {
+        return
+      }
+      submitLoading.value = true
       useUser.login().then(() => {
-        router.push('/')
+        router.replace(redirect.value)
+      }).finally(() => {
+        submitLoading.value = false
       })
     }
   })
@@ -74,7 +84,7 @@ function handleLogin() {
               </template>
             </el-input>
           </el-form-item>
-          <el-button class="w-full" type="primary" size="large" @click="handleLogin">
+          <el-button class="w-full" type="primary" size="large" :loading="submitLoading" @click="handleLogin">
             登录 {{ useUser.token }}
           </el-button>
         </el-form>

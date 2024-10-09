@@ -4,6 +4,7 @@ import { useTitle } from '@vueuse/core'
 import constantRoutes from './constant'
 import { usePermissionStore } from '@/stores/permission'
 import { useAppConfigStore } from '@/stores/app'
+import { useUserStore } from '@/stores/user'
 
 const { isLoading } = useNProgress()
 
@@ -15,7 +16,9 @@ const router = createRouter({
 })
 let sign = false
 router.beforeEach(async (to, from, next) => { // 菜单按钮按下
+  const useUser = useUserStore()
   const useAppConfig = useAppConfigStore()
+  const usePermission = usePermissionStore()
   // eslint-disable-next-line ts/no-unused-expressions
   useAppConfig.appConfig.app.enableProgress && (isLoading.value = true)
 
@@ -25,18 +28,32 @@ router.beforeEach(async (to, from, next) => { // 菜单按钮按下
     to.meta.title ? title.value = to.meta.title : title.value = import.meta.env.VITE_APP_TITLE
   }
 
-  const usePermission = usePermissionStore()
-  if (!sign && !usePermission.routes.length) {
-    const filterRoutes = await usePermission.filterPermissionRoutes()
-    sign = true
-    filterRoutes.forEach((item) => {
-      router.addRoute(item)
-    })
+  if (useUser.getToken) {
+    if (!sign || !usePermission.routes.length) {
+      const filterRoutes = await usePermission.filterPermissionRoutes()
+      sign = true
+      filterRoutes.forEach((item) => {
+        router.addRoute(item)
+      })
 
-    next(to.fullPath)
+      next(to.fullPath)
+    }
+    else {
+      next()
+    }
   }
   else {
-    next()
+    if (to.meta.isWhite) {
+      next()
+    }
+    else {
+      next({
+        path: '/login',
+        query: {
+          redirectPath: to.fullPath,
+        },
+      })
+    }
   }
 })
 

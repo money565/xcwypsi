@@ -13,6 +13,7 @@ declare module 'vue-router' {
     auth?: string | string[] // 权限
     cache?: boolean | string | string[] // 是否需要缓存
     noCache?: string | string[] // 不缓存的页面name（当cache存在才生效）
+    isWhite?: boolean// 是否是白名单
   }
   interface _RouteRecordBase {
     parentIndex?: number
