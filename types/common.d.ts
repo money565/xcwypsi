@@ -5,6 +5,8 @@ type ColorScheme = '' | 'light' | 'dark'
 
 interface IGlobalApp {
   enablePermission: boolean
+  enableProgress: boolean
+  enableDyableTitle: boolean
   layoutMode: LayleoutMode
   colorScheme: ColorScheme
 }
