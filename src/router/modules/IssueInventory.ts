@@ -10,7 +10,7 @@ export default {
     icon: 'IssueInventory',
   },
   children: [{
-    path: 'IssueInventory-1',
+    path: '',
     name: 'IssueInventory-1',
     component: () => import('@/views/components/IssueInventory/index.vue'),
   }],

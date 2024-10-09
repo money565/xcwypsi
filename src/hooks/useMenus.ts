@@ -62,7 +62,6 @@ export default function useMenus() {
     })
   })
 
-  console.log('usePermission', allMainMenu.value)
   const menus = computed(() => {
     if (['onlyTopNav', 'onlySubSideNav'].includes(useAppConfig.getLayoutMode)) {
       return allSubMenu
@@ -74,5 +73,6 @@ export default function useMenus() {
   return {
     menus,
     allMainMenu,
+    allSubMenu,
   }
 }

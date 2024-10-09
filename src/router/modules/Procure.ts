@@ -10,7 +10,7 @@ export default {
     icon: 'Procure',
   },
   children: [{
-    path: 'Procure-1',
+    path: '',
     name: 'Procure-1',
     component: () => import('@/views/components/Procure/index.vue'),
   }],

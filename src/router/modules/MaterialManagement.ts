@@ -10,7 +10,7 @@ export default {
     icon: 'MaterialManagement',
   },
   children: [{
-    path: 'MaterialManagement-1',
+    path: '',
     name: 'MaterialManagement-1',
     component: () => import('@/views/components/MaterialManagement/index.vue'),
   }],

@@ -10,7 +10,7 @@ export default {
     icon: 'WarehouseManagement',
   },
   children: [{
-    path: 'WarehouseManagement1-1',
+    path: '',
     name: 'WarehouseManagement1-1',
     component: () => import('@/views/components/WarehouseManagement/index.vue'),
   }],

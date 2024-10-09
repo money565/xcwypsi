@@ -10,7 +10,7 @@ export default {
     icon: 'echarts',
   },
   children: [{
-    path: 'echartsRouter-1',
+    path: '',
     name: 'echartsRouter-1',
     component: () => import('@/views/components/echarts/index.vue'),
   }],

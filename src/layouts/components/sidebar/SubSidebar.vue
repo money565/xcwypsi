@@ -33,7 +33,7 @@ const { menus } = useMenus()!
     <div class="flex-1 overflow-hidden hover:overflow-y-auto">
       <el-menu
         router
-        :default-active="String($route.meta?.activeMenu) || $route.fullPath"
+        :default-active="$route.meta?.activeMenu || $route.fullPath"
         :unique-opened="true"
         :collapse="useAppConfig.getCollapse"
         :collapse-transition="false"

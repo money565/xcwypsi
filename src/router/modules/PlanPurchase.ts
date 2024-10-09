@@ -10,7 +10,7 @@ export default {
     icon: 'PlanPurchase',
   },
   children: [{
-    path: 'PlanPurchase-1',
+    path: '',
     name: 'PlanPurchase-1',
     component: () => import('@/views/components/PlanPurchase/index.vue'),
   }],

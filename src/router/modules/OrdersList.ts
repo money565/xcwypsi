@@ -10,7 +10,7 @@ export default {
     icon: 'OrdersList',
   },
   children: [{
-    path: 'OrdersList-1',
+    path: '',
     name: 'OrdersList-1',
     component: () => import('@/views/components/OrdersList/index.vue'),
   }],

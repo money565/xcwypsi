@@ -10,7 +10,7 @@ export default {
     icon: 'Outbound',
   },
   children: [{
-    path: 'Outbound-1',
+    path: '',
     name: 'Outbound-1',
     component: () => import('@/views/components/Outbound/index.vue'),
   }],

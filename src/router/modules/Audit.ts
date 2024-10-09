@@ -10,7 +10,7 @@ export default {
     icon: 'Audit',
   },
   children: [{
-    path: 'Audit-1',
+    path: '',
     name: 'Audit-1',
     component: () => import('@/views/components/Audit/index.vue'),
   }],

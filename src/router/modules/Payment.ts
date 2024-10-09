@@ -10,7 +10,7 @@ export default {
     icon: 'SupplierManagement',
   },
   children: [{
-    path: 'SupplierManagement-1',
+    path: '',
     name: 'SupplierManagement-1',
     component: () => import('@/views/components/SupplierManagement/index.vue'),
   }],

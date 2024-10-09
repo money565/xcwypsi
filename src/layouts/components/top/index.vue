@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import type { RouteRecordRaw } from 'vue-router'
 import SidebarItem from '../sidebar/SidebarItem.vue'
 import Logo from '../logo/index.vue'
 import { useAppConfigStore } from '@/stores/app'
 import useMenus from '@/hooks/useMenus'
 import { usePermissionStore } from '@/stores/permission'
+import { isEmpty } from '@/utils'
 
 const useAppConfig = useAppConfigStore()
 
@@ -127,11 +129,36 @@ const darktopnavactivetextcolor = computed(() => {
   return '#D3D3D3'
 })
 
-const { menus, allMainMenu } = useMenus()!
+const { menus, allSubMenu, allMainMenu } = useMenus()!
 const usePermission = usePermissionStore()
 function clickMainMenu(parentIndex: number) {
   usePermission.changeMainMenu(parentIndex)
 }
+
+function findCurItemPath(path: string, allSubMenu: RouteRecordRaw[]): RouteRecordRaw | undefined {
+  if (isEmpty(allSubMenu))
+    return undefined
+  for (const item of allSubMenu!) {
+    if (item.path === path) {
+      return item
+    }
+
+    if (!isEmpty(item.children)) {
+      const res = findCurItemPath(path, item.children!)
+      if (res)
+        return res
+    }
+  }
+}
+const route = useRoute()
+watch(() => route, (n) => {
+  const { path } = n
+  usePermission.changeMainMenu(findCurItemPath(path, allSubMenu)?.parentIndex ?? 0)
+  console.log(path, usePermission.mainMenuActive)
+}, {
+  immediate: true,
+  deep: true,
+})
 </script>
 
 <template>
@@ -141,6 +168,7 @@ function clickMainMenu(parentIndex: number) {
     <template v-if="useAppConfig.getLayoutMode === 'topSubSideNav'">
       <el-menu
         mode="horizontal"
+        :default-active="`${usePermission.mainMenuActive}`"
         :unique-opened="true"
         class="flex-1 main-menu"
       >

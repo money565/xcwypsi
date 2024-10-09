@@ -10,7 +10,7 @@ export default {
     icon: 'switch',
   },
   children: [{
-    path: 'switchRouter-1',
+    path: '',
     name: 'switchRouter-1',
     component: () => import('@/views/components/switch/index.vue'),
   }],

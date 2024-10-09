@@ -10,7 +10,7 @@ export default {
     icon: 'Records',
   },
   children: [{
-    path: 'Records-1',
+    path: '',
     name: 'Records-1',
     component: () => import('@/views/components/Records/index.vue'),
   }],

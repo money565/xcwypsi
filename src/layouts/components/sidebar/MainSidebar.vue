@@ -1,8 +1,10 @@
 <script setup lang="ts" name="mainSidebar">
+import type { RouteRecordRaw } from 'vue-router'
 import logo from '../logo/index.vue'
 import { useAppConfigStore } from '@/stores/app'
 import useMenus from '@/hooks/useMenus'
 import { usePermissionStore } from '@/stores/permission'
+import { isEmpty } from '@/utils'
 
 const useAppConfig = useAppConfigStore()
 const mainmenubgcolor = computed(() => useAppConfig.getTheme.mainMenuBgColor)
@@ -13,11 +15,36 @@ const mainmenuactivebgcolor = computed(() => useAppConfig.getTheme.mainMenuActiv
 const mainmenuactivetextcolor = computed(() => useAppConfig.getTheme.mainMenuActiveTextColor)
 
 const usePermission = usePermissionStore()
-const { allMainMenu } = useMenus()
+const { allMainMenu, allSubMenu } = useMenus()
+
+function findCurItemPath(path: string, allSubMenu: RouteRecordRaw[]): RouteRecordRaw | undefined {
+  if (isEmpty(allSubMenu))
+    return undefined
+  for (const item of allSubMenu!) {
+    if (item.path === path) {
+      return item
+    }
+
+    if (!isEmpty(item.children)) {
+      const res = findCurItemPath(path, item.children!)
+      if (res)
+        return res
+    }
+  }
+}
 
 function clickMainMenu(parentIndex: number) {
   usePermission.changeMainMenu(parentIndex)
 }
+const route = useRoute()
+watch(() => route, (n) => {
+  const { path } = n
+  usePermission.changeMainMenu(findCurItemPath(path, allSubMenu)?.parentIndex ?? 0)
+  console.log(path, usePermission.mainMenuActive)
+}, {
+  immediate: true,
+  deep: true,
+})
 </script>
 
 <template>
@@ -31,6 +58,7 @@ function clickMainMenu(parentIndex: number) {
             class="rounded-lg cursor-pointer flex flex-col h-[var(--xt-main-sidebar-item-height)] mx-2
             mb-1 justify-center items-center main-menu-item px-1"
             :class="usePermission.mainMenuActive === item.parentIndex ? 'is-active' : ''"
+            :default-active="`${usePermission.mainMenuActive}`"
             @click="clickMainMenu(item.parentIndex!)"
           >
             <el-icon v-if="item.icon" :size="20">

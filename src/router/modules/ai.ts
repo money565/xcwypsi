@@ -10,7 +10,7 @@ export default {
     icon: 'ai',
   },
   children: [{
-    path: 'ai-1',
+    path: '',
     name: 'ai-1',
     component: () => import('@/views/components/ai/index.vue'),
   }],

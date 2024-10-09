@@ -73,5 +73,6 @@ export const usePermissionStore = defineStore('permission', () => {
     mainMenuActive.value = index
   }
 
-  return { routes, filterPermissionRoutes, mainMenuActive, addIndexPrivateRoutes, changeMainMenu }
+  const subMenuActive = ref()
+  return { routes, filterPermissionRoutes, mainMenuActive, subMenuActive, addIndexPrivateRoutes, changeMainMenu }
 })
