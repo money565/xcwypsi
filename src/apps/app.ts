@@ -1,5 +1,13 @@
 const sysGlobalConfig: IGlobalConfig = {
   defaultLanguage: 'zh-cn',
+  /**
+   * element组件尺寸
+   * 主内容区默认文字大小关联
+   * 可选：large、default、small
+   * large：16px
+   * default：14px
+   * small：12px
+   */
   elementSize: 'default',
   app: {
     /**
@@ -10,6 +18,8 @@ const sysGlobalConfig: IGlobalConfig = {
     enableProgress: true,
     // 是否开启动态标题
     enableDyableTitle: true,
+    // 是否开启home首页(设置位false时，登陆后框架会跳转到菜单中的第一个模块)
+    enableHome: true,
     /**
      * 布局模式
      * onlyTopNav  只有顶部导航
@@ -17,7 +27,7 @@ const sysGlobalConfig: IGlobalConfig = {
      * mainSubSideNav  侧边主导航+侧边次栏导航
      * topSubSideNav  顶部主导航+侧边次栏导航
      */
-    layoutMode: 'mainSubSideNav',
+    layoutMode: 'onlySubSideNav',
     /**
      * 颜色方案
      * ''系统默认
@@ -27,7 +37,41 @@ const sysGlobalConfig: IGlobalConfig = {
     colorScheme: 'light',
   },
   nav: {
+    // 此导航栏是否收起
     subMenuCollaspe: false,
+    // 操作栏（tabbar和toolbar）是否固定
+    fixed: true,
+  },
+  tabbar: {
+    // 是否开启
+    enable: true,
+  },
+  // 工具栏
+  toolbar: {
+    // 是否开启
+    enable: true,
+    // 是否开启全屏
+    enableFullscreen: true,
+    // 是否开启颜色系统（明亮暗黑模式）
+    enableColorScheme: true,
+    // 是否开启换肤
+    enableChangeTheme: true,
+    // 是否开启国际化
+    enableI18n: true,
+    // 是否开启侧边栏展开收起按钮
+    enableSidebarCollapse: true,
+    // 是否开启面包屑导航
+    enableBreadcrumb: true,
+    // 是否开启页面刷新
+    enablePageReload: true,
+    // 是否开启菜单搜索
+    enableMenuSearch: true,
+    // 是否开启框架元素大小切换（改变elementui的大小和上方elementSize的作用一样）
+    enableElementSize: true,
+    // 是否开启应用配置（建议在生产环境关闭）
+    enableAppSetting: true,
+    // 是否开启通知中心
+    enableNotification: false,
   },
   theme: {
     // -----Logo-------

@@ -1,10 +1,12 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { useNProgress } from '@vueuse/integrations/useNProgress'
 import { useTitle } from '@vueuse/core'
+import { ElMessage } from 'element-plus'
 import constantRoutes from './constant'
 import { usePermissionStore } from '@/stores/permission'
 import { useAppConfigStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
+import useMenus from '@/hooks/useMenus'
 
 const { isLoading } = useNProgress()
 
@@ -39,7 +41,29 @@ router.beforeEach(async (to, from, next) => { // 菜单按钮按下
       next(to.fullPath)
     }
     else {
-      next()
+      if (to.name === 'login') {
+        next({ name: 'home', replace: true })
+      }
+      else if (to.name === 'home' && !useAppConfig.appConfig.app.enableHome) {
+        const { allSubMenu } = useMenus()
+        if (allSubMenu.length) {
+          next({
+            path: allSubMenu[0].path,
+            replace: true,
+          })
+        }
+        else {
+          ElMessage.error('没有配置菜单')
+
+          next({
+            name: 'NotFound',
+            replace: true,
+          })
+        }
+      }
+      else {
+        next()
+      }
     }
   }
   else {

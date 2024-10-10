@@ -17,6 +17,7 @@ function mergeRouterPath(routes: RouteRecordRaw[], basePath = '') {
 }
 
 function generateMenus(allMergePathRoutes: RouteRecordRaw[]) {
+  const useAppConfig = useAppConfigStore()
   // 筛选路由，哪些路由用于跳转页面，哪些路由是菜单等等
   const result: RouteRecordRaw[] = []
   for (const item of allMergePathRoutes) {
@@ -34,6 +35,9 @@ function generateMenus(allMergePathRoutes: RouteRecordRaw[]) {
       }
       if (route.meta?.title && !route.meta.hideInMenu) {
         // TODO: home页面是否开启判断
+        if (!useAppConfig.appConfig.app.enableHome && route.name === 'home') {
+          continue
+        }
         result.push(route)
       }
 

@@ -7,12 +7,32 @@ interface IGlobalApp {
   enablePermission: boolean
   enableProgress: boolean
   enableDyableTitle: boolean
+  enableHome: boolean
   layoutMode: LayleoutMode
   colorScheme: ColorScheme
 }
 
 interface IGlobalNav {
   subMenuCollaspe: boolean
+  fixed: boolean
+}
+interface IGlobalTabbar {
+  enable: boolean
+}
+
+interface IGlobalToolbar {
+  enable: boolean
+  enableSidebarCollapse: boolean
+  enableBreadcrumb: boolean
+  enableMenuSearch: boolean
+  enableElementSize: boolean
+  enableNotification: boolean
+  enableI18n: boolean
+  enableFullscreen: boolean
+  enableColorScheme: boolean
+  enableChangeTheme: boolean
+  enablePageReload: boolean
+  enableAppSetting: boolean
 }
 
 interface IGlobalTheme {
@@ -37,6 +57,8 @@ declare interface IGlobalConfig {
   app: IGlobalApp
   nav: IGlobalNav
   theme: IGlobalTheme
+  tabbar: IGlobalTabbar
+  toolbar: IGlobalToolbar
 }
 
 declare namespace Menu{

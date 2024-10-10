@@ -135,30 +135,32 @@ function clickMainMenu(parentIndex: number) {
   usePermission.changeMainMenu(parentIndex)
 }
 
-function findCurItemPath(path: string, allSubMenu: RouteRecordRaw[]): RouteRecordRaw | undefined {
-  if (isEmpty(allSubMenu))
-    return undefined
-  for (const item of allSubMenu!) {
-    if (item.path === path) {
-      return item
-    }
+if (useAppConfig.getLayoutMode === 'topSubSideNav') {
+  function findCurItemPath(path: string, allSubMenu: RouteRecordRaw[]): RouteRecordRaw | undefined {
+    if (isEmpty(allSubMenu))
+      return undefined
+    for (const item of allSubMenu!) {
+      if (item.path === path) {
+        return item
+      }
 
-    if (!isEmpty(item.children)) {
-      const res = findCurItemPath(path, item.children!)
-      if (res)
-        return res
+      if (!isEmpty(item.children)) {
+        const res = findCurItemPath(path, item.children!)
+        if (res)
+          return res
+      }
     }
   }
+  const route = useRoute()
+  watch(() => route, (n) => {
+    const { path } = n
+    usePermission.changeMainMenu(findCurItemPath(path, allSubMenu)?.parentIndex ?? 0)
+    console.log(path, usePermission.mainMenuActive)
+  }, {
+    immediate: true,
+    deep: true,
+  })
 }
-const route = useRoute()
-watch(() => route, (n) => {
-  const { path } = n
-  usePermission.changeMainMenu(findCurItemPath(path, allSubMenu)?.parentIndex ?? 0)
-  console.log(path, usePermission.mainMenuActive)
-}, {
-  immediate: true,
-  deep: true,
-})
 </script>
 
 <template>
