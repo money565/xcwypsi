@@ -6,7 +6,7 @@ interface IProps {
 }
 
 withDefaults(defineProps<IProps>(), {
-  size: 40,
+  size: 30,
 })
 
 function toggleClick() {

@@ -26,4 +26,17 @@
     --xt-main-menu-hover-text-color: #ffffff;
     --xt-main-menu-active-bg-color: #14424b;
     --xt-main-menu-active-text-color: #ffffff;
+
+    // tabbar
+  --xt-tabbar-bg-color: #303643; // tabbar背景色
+  --xt-tabbar-item-bg-color: #303643; // tabbaritem背景色
+  --xt-tabbar-item-active-bg-color: #14424b; // tabbaritem选中项背景色
+  --xt-tabbar-item-hover-bg-color: #14424b; // tabbaritem鼠标经过项背景色
+  --xt-tabbar-item-text-color: #7a6b7e; // tabbaritem字体色
+  --xt-tabbar-item-active-text-color: #fff; // tabbaritem选中项字体色
+  --xt-tabbar-item-hover-text-color: #fff; // tabbaritem鼠标经过项字体色
+
+  // toolbar
+  --xt-toolbar-bg-color: #303643; // toolbar背景色
+  --xt-toolbar-text-color: #7a6b7e; // toolbar字体色
 }

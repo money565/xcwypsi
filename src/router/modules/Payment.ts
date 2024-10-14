@@ -1,18 +1,18 @@
 import type { RouteRecordRaw } from 'vue-router'
 
 export default {
-  path: '/SupplierManagement',
-  name: 'SupplierManagement',
-  redirect: '/SupplierManagement/SupplierManagement-1',
+  path: '/Payment',
+  name: 'Payment',
+  redirect: '/Payment/Payment-1',
   component: () => import('@/layouts/index.vue'),
   meta: {
-    title: '供应商管理',
-    icon: 'SupplierManagement',
+    title: '支付管理',
+    icon: 'Payment',
   },
   children: [{
     path: '',
-    name: 'SupplierManagement-1',
-    component: () => import('@/views/components/SupplierManagement/index.vue'),
+    name: 'Payment-1',
+    component: () => import('@/views/components/Payment/index.vue'),
   }],
 
 } as RouteRecordRaw

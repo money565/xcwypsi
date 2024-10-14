@@ -3,16 +3,17 @@ import type { RouteRecordRaw } from 'vue-router'
 export default {
   path: '/SupplierManagement',
   name: 'SupplierManagement',
-  redirect: '/SupplierManagement/SupplierManagement-1',
   component: () => import('@/layouts/index.vue'),
   meta: {
     title: '供应商管理',
     icon: 'SupplierManagement',
   },
   children: [{
-    path: '',
-    name: 'SupplierManagement-1',
-    component: () => import('@/views/components/SupplierManagement/index.vue'),
+    path: 'createSupplier',
+    name: 'createSupplier',
+    component: () => import('@/views/components/SupplierManagement/CreateSupplier/index.vue'),
+    meta: {
+      title: '新增供应商',
+    },
   }],
-
 } as RouteRecordRaw

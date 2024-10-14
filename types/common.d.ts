@@ -50,6 +50,15 @@ interface IGlobalTheme {
   mainMenuTextColor: string
   mainMenuActiveTextColor: string
   mainMenuHoverTextColor: string
+  tabbarBgColor: string
+  tabbarItemBgColor: string
+  tabbarItemActiveBgColor: string
+  tabbarItemHoverBgColor: string
+  tabbarItemTextColor: string
+  tabbarItemActiveTextColor: string
+  tabbarItemHoverTextColor: string
+  toolbarBgColor: string
+  toolbarTextColor: string
 }
 declare interface IGlobalConfig {
   defaultLanguage: Language

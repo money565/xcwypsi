@@ -2,7 +2,7 @@
 import SelectColor from './coms/SelectColor.vue'
 
 withDefaults(defineProps<IProps>(), {
-  size: 20,
+  size: 30,
 })
 
 interface IProps {
@@ -17,13 +17,15 @@ function handleClick() {
 </script>
 
 <template>
-  <el-icon :size="size" @click="handleClick">
-    <svg-icon
-      class="cursor-pointer"
-      name="palette"
-    />
-  </el-icon>
-  <SelectColor ref="selectColorRef" />
+  <div class="flex items-center">
+    <el-icon :size="size" @click="handleClick">
+      <svg-icon
+        class="cursor-pointer"
+        name="palette"
+      />
+    </el-icon>
+    <SelectColor ref="selectColorRef" />
+  </div>
 </template>
 
 <style scoped>

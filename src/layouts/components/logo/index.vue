@@ -30,7 +30,7 @@ const avatarUrl = '/src/assets/icons/logo.png'
     class="logo h-[var(--xt-log-height)] flex items-center justify-center flex-shrink-0
   px-2"
   >
-    <el-avatar v-if="showLogoImage" :size="40" shape="square" :src="avatarUrl" />
+    <el-avatar v-if="showLogoImage" :size="30" shape="square" :src="avatarUrl" />
     <span v-if="showLogoText" class="font-bold truncate ml-2">{{ title }}</span>
   </router-link>
 </template>
