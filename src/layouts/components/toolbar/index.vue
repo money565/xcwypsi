@@ -2,7 +2,7 @@
 import SidebarCollapse from '../tools/SidebarCollapse/index.vue'
 import ChangeColorScheme from '../tools/ChangeColorScheme/index.vue'
 import ThemeSelect from '../tools/ThemeSelect/index.vue'
-// import Breadcrumb from '../toolbar/Breadcrumb/index.vue'
+import Breadcrumb from '../toolbar/Breadcrumb/index.vue'
 import { useAppConfigStore } from '@/stores/app'
 
 const useAppConfig = useAppConfigStore()
@@ -14,7 +14,7 @@ const toolbarTextColor = computed(() => useAppConfig.getTheme.toolbarTextColor)
   <div class="h-[var(--xt-toolbar-height)] flex items-center px-4 toolbar-content">
     <div class="flex items-center">
       <SidebarCollapse v-if="useAppConfig.appConfig.toolbar.enableSidebarCollapse" class="mr-2" />
-      <!-- <Breadcrumb v-if="useAppConfig.appConfig.toolbar.enableBreadcrumb" /> -->
+      <Breadcrumb v-if="useAppConfig.appConfig.toolbar.enableBreadcrumb" />
     </div>
 
     <div class="ml-auto flex items-center">

@@ -15,5 +15,12 @@ export default {
     meta: {
       title: '新增供应商',
     },
+  }, {
+    path: 'supplierList',
+    name: 'supplierList',
+    component: () => import('@/views/components/SupplierManagement/SupplierList/index.vue'),
+    meta: {
+      title: '供应商列表',
+    },
   }],
 } as RouteRecordRaw

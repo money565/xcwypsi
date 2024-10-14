@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" name="layouts">
 import mainSidebar from './components/sidebar/MainSidebar.vue'
 import subSidebar from './components/sidebar/SubSidebar.vue'
 import topView from './components/top/index.vue'
@@ -39,7 +39,6 @@ const sideBarWidth = computed(() => {
 })
 
 const fixedActionbar = computed(() => {
-  console.log(useAppConfig.appConfig.nav.fixed)
   if (useAppConfig.appConfig.nav.fixed) {
     return 'fixed z-1'
   }
