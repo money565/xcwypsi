@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import BScroll from '@better-scroll/core'
+import ContextMenu from './ContextMenu/index.vue'
 import { useAppConfigStore } from '@/stores/app'
 
 const scrollRef = ref()
 const scrolltemRef = ref()
 const bs = ref()
+const visible = ref(false)
+
 onMounted(() => {
   bs.value = new BScroll(scrollRef.value, {
     scrollX: true,
@@ -15,7 +18,7 @@ onMounted(() => {
 onUnmounted(() => {
   bs.value.destroyed()
 })
-const demolist = ref([{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}])
+const demolist = ref<any[]>([])
 const useAppConfig = useAppConfigStore()
 const tabbarBgColor = computed(() => useAppConfig.getTheme.tabbarBgColor)
 const tabbarItemBgColor = computed(() => useAppConfig.getTheme.tabbarItemBgColor)
@@ -31,6 +34,46 @@ function demo(index: number) {
   bs.value.refresh()
   bs.value.scrollToElement(scrolltemRef.value.children[index], 500, true)
 }
+
+const route = useRoute()
+watch(() => route, (val) => {
+  if (!val.meta || !val.meta.title) {
+    return
+  }
+  const { path, fullPath, meta, matched } = val
+  console.log(val)
+  demolist.value.push({
+    path,
+    fullPath,
+    meta,
+    name: matched.find(v => v.path)?.components?.default.name || '',
+  })
+}, { immediate: true, deep: true })
+
+const contextStyle = reactive({
+  left: '0',
+  top: '0',
+})
+function openMenu(e: MouseEvent) {
+  const { x, y } = e
+  contextStyle.left = `${x}px`
+  contextStyle.top = `${y}px`
+  console.log(contextStyle)
+  visible.value = true
+}
+
+function closeMenu() {
+  visible.value = false
+}
+
+watch(visible, () => {
+  if (visible.value) {
+    document.body.addEventListener('click', closeMenu)
+  }
+  else {
+    document.body.removeEventListener('click', closeMenu)
+  }
+})
 </script>
 
 <template>
@@ -43,17 +86,20 @@ function demo(index: number) {
       <template v-for="(tag, tagI) in demolist" :key="tagI">
         <div
           class="tabbar-item mr-2 px-2 flex items-center h-full rounded-md cursor-pointer duration-300"
-          :class="tagI === demoIndex ? 'active' : ''"
+          :class="tag.fullPath === route.fullPath ? 'active' : ''"
           @click="demo(tagI)"
+          @contextmenu.prevent="openMenu"
         >
-          <span class="w-20 truncate">tag-{{ tagI + 1 }}</span>
+          <span class="w-20 truncate">{{ tag.meta.title }}</span>
           <el-icon v-show="demolist.length > 1" class="ml-2 close-icon">
             <SvgIcon name="close" />
           </el-icon>
         </div>
       </template>
     </div>
-    new-tabbar
+    <Teleport to="body">
+      <ContextMenu v-show="visible" :style="contextStyle" />
+    </Teleport>
   </div>
 </template>
 

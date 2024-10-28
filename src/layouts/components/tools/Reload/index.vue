@@ -3,9 +3,7 @@
 </script>
 
 <template>
-  <div>
-    WarehouseManagement
-  </div>
+  <div />
 </template>
 
 <style scoped>
