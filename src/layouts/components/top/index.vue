@@ -155,7 +155,6 @@ if (useAppConfig.getLayoutMode === 'topSubSideNav') {
   watch(() => route, (n) => {
     const { path } = n
     usePermission.changeMainMenu(findCurItemPath(path, allSubMenu)?.parentIndex ?? 0)
-    console.log(path, usePermission.mainMenuActive)
   }, {
     immediate: true,
     deep: true,

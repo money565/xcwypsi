@@ -9,7 +9,6 @@ import setupExtendPlus from './extend-plus'
 import setupMock from './mock'
 
 export default function setupVitePlugin(viteEnv: Record<string, string>, isBuild: boolean) {
-  console.log(viteEnv)
   const { VITE_USE_MOCK } = viteEnv
 
   const plugins: PluginOption = [

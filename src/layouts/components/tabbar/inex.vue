@@ -2,6 +2,7 @@
 import BScroll from '@better-scroll/core'
 import ContextMenu from './ContextMenu/index.vue'
 import { useAppConfigStore } from '@/stores/app'
+import { useTabbarStore } from '@/stores/tabbar'
 
 const scrollRef = ref()
 const scrolltemRef = ref()
@@ -18,7 +19,7 @@ onMounted(() => {
 onUnmounted(() => {
   bs.value.destroyed()
 })
-const demolist = ref<any[]>([])
+
 const useAppConfig = useAppConfigStore()
 const tabbarBgColor = computed(() => useAppConfig.getTheme.tabbarBgColor)
 const tabbarItemBgColor = computed(() => useAppConfig.getTheme.tabbarItemBgColor)
@@ -28,25 +29,26 @@ const tabbarItemTextColor = computed(() => useAppConfig.getTheme.tabbarItemTextC
 const tabbarItemActiveTextColor = computed(() => useAppConfig.getTheme.tabbarItemActiveTextColor)
 const tabbarItemHoverTextColor = computed(() => useAppConfig.getTheme.tabbarItemHoverTextColor)
 
-const demoIndex = ref(0)
-function demo(index: number) {
-  demoIndex.value = index
-  bs.value.refresh()
-  bs.value.scrollToElement(scrolltemRef.value.children[index], 500, true)
-}
-
 const route = useRoute()
+const router = useRouter()
+const useTabbar = useTabbarStore()
 watch(() => route, (val) => {
   if (!val.meta || !val.meta.title) {
     return
   }
   const { path, fullPath, meta, matched } = val
-  console.log(val)
-  demolist.value.push({
-    path,
+  useTabbar.add({
     fullPath,
     meta,
-    name: matched.find(v => v.path)?.components?.default.name || '',
+    name: matched.find(v => v.path === path)?.components?.default.name || '',
+  })
+
+  nextTick(() => {
+    bs.value.refresh()
+    const scrollIndex = useTabbar.list.findIndex(v => v.fullPath === fullPath)
+    if (scrollIndex !== -1 && scrolltemRef.value?.children) {
+      bs.value.scrollToElement(scrolltemRef.value.children[scrollIndex], 500, true)
+    }
   })
 }, { immediate: true, deep: true })
 
@@ -54,16 +56,27 @@ const contextStyle = reactive({
   left: '0',
   top: '0',
 })
-function openMenu(e: MouseEvent) {
+const ContextMenuClickIndex = ref(-1)
+function openMenu(e: MouseEvent, clickIndex: number) {
   const { x, y } = e
   contextStyle.left = `${x}px`
   contextStyle.top = `${y}px`
-  console.log(contextStyle)
+  ContextMenuClickIndex.value = clickIndex
   visible.value = true
 }
 
 function closeMenu() {
   visible.value = false
+}
+
+function closeTab(clickIndex: number) {
+  const activeIndex = useTabbar.list.findIndex(v => v.fullPath === route.fullPath)
+  if (activeIndex === clickIndex) {
+    useTabbar.remove('self', clickIndex, activeIndex)
+  }
+  else {
+    useTabbar.remove('otherOnce', clickIndex, activeIndex)
+  }
 }
 
 watch(visible, () => {
@@ -83,22 +96,22 @@ watch(visible, () => {
    whitespace-nowrap overflow-hidden  tabbar-content"
   >
     <div ref="scrolltemRef" class="px-2 flex h-full py-1">
-      <template v-for="(tag, tagI) in demolist" :key="tagI">
+      <template v-for="(tag, tagI) in useTabbar.list" :key="tag.fullPath">
         <div
           class="tabbar-item mr-2 px-2 flex items-center h-full rounded-md cursor-pointer duration-300"
           :class="tag.fullPath === route.fullPath ? 'active' : ''"
-          @click="demo(tagI)"
-          @contextmenu.prevent="openMenu"
+          @click="router.push(tag.fullPath)"
+          @contextmenu.prevent="openMenu($event, tagI)"
         >
           <span class="w-20 truncate">{{ tag.meta.title }}</span>
-          <el-icon v-show="demolist.length > 1" class="ml-2 close-icon">
+          <el-icon v-show="useTabbar.list.length > 1" class="ml-2 close-icon" @click.stop="closeTab(tagI)">
             <SvgIcon name="close" />
           </el-icon>
         </div>
       </template>
     </div>
     <Teleport to="body">
-      <ContextMenu v-show="visible" :style="contextStyle" />
+      <ContextMenu v-show="visible" :style="contextStyle" :click-index="ContextMenuClickIndex" />
     </Teleport>
   </div>
 </template>

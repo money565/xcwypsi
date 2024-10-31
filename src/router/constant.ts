@@ -28,6 +28,11 @@ const constantRoutes: RouteRecordRaw[] = [
           icon: 'home',
         },
       },
+      {
+        path: 'reload',
+        name: 'reload',
+        component: () => import('@/views/reload.vue'),
+      },
     ],
   },
 ]
