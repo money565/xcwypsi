@@ -1,6 +1,7 @@
 import { get } from '@/request'
 
 interface IResult {
+  permissions: string[]
   name: string
   rank: number
   ddingID: string
@@ -14,5 +15,9 @@ interface IDemo<T> {
 }
 
 export function loginApi() {
-  return get<IDemo<IResult>>('/test')
+  return get<IDemo<IResult>>('/testLogin')
+}
+
+export function permissionApi() {
+  return get<IDemo<IResult>>('/user/permission')
 }

@@ -1,14 +1,14 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'CreateSupplier',
+  name: 'UserManage',
 })
 const input = ref('')
 </script>
 
 <template>
   <div>
-    新增供应商
-    <el-input v-model="input" placeholder="供应商名称" />
+    用户设置
+    <el-input v-model="input" placeholder="input" />
   </div>
 </template>
 

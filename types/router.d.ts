@@ -17,5 +17,6 @@ declare module 'vue-router' {
   }
   interface _RouteRecordBase {
     parentIndex?: number
+    componentName?: string
   }
 }

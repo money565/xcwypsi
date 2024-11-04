@@ -1,10 +1,11 @@
-<script setup lang="ts" name="layouts">
+<script setup lang="ts">
 import mainSidebar from './components/sidebar/MainSidebar.vue'
 import subSidebar from './components/sidebar/SubSidebar.vue'
 import topView from './components/top/index.vue'
 import tabbar from './components/tabbar/inex.vue'
 import toolbar from './components/toolbar/index.vue'
 import { useAppConfigStore } from '@/stores/app'
+import { useKeepAliveStore } from '@/stores/keepAlive'
 
 const useAppConfig = useAppConfigStore()
 const showTop = computed(() => {
@@ -115,6 +116,8 @@ const routerViewContentFontSize = computed(() => {
   }
   return fs
 })
+
+const useKeepAlive = useKeepAliveStore()
 </script>
 
 <template>
@@ -138,7 +141,7 @@ const routerViewContentFontSize = computed(() => {
           </div>
         </template>
 
-        <main class="flex-1 main-box flex flex-col" :class="useAppConfig.appConfig.nav.fixed ? '' : 'overflow-auto'">
+        <main class="flex-1 main-box flex flex-col overflow-x-hidden" :class="useAppConfig.appConfig.nav.fixed ? '' : 'overflow-auto'">
           <div class="right-0" :class="[fixedActionbar, actionbarleft, actionbarTop]">
             <tabbar v-if="showTabbar" />
             <toolbar v-if="showToolbar" />
@@ -149,7 +152,13 @@ const routerViewContentFontSize = computed(() => {
               'overflow-auto': useAppConfig.appConfig.nav.fixed,
             }]"
           >
-            <RouterView />
+            <RouterView v-slot="{ Component, route }">
+              <KeepAlive :include="[...useKeepAlive.list]">
+                <component
+                  :is="Component" :key="route.fullPath"
+                />
+              </keepalive>
+            </RouterView>
           </section>
         </main>
       </div>

@@ -3,7 +3,7 @@ import type { RouteRecordRaw } from 'vue-router'
 export default {
   path: '/switchRouter',
   name: 'switchRouter',
-  redirect: '/switchRouter/switchRouter-1',
+
   component: () => import('@/layouts/index.vue'),
   meta: {
     title: '阈值设定',

@@ -13,7 +13,8 @@ const sysGlobalConfig: IGlobalConfig = {
     /**
      * 是否开启权限功能
      */
-    enablePermission: false,
+    enablePermission: true,
+    routeMode: 'frontend',
     // 是否开启载入进度条
     enableProgress: true,
     // 是否开启动态标题

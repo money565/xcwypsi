@@ -6,6 +6,7 @@ const route = useRoute()
 const breadcrumData = ref<RouteLocationMatched[]>([])
 
 function onLinkClick(item: RouteLocationMatched) {
+  // TODO:做了权限后，这里需要判断是否有权限
   router.push(item.path)
 }
 

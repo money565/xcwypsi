@@ -37,10 +37,12 @@ watch(() => route, (val) => {
     return
   }
   const { path, fullPath, meta, matched } = val
+  console.log(path)
   useTabbar.add({
     fullPath,
     meta,
-    name: matched.find(v => v.path === path)?.components?.default.name || '',
+    // name: matched.find(v => v.path === path)?.components?.default.name || '',
+    name: matched[matched.length - 1].components?.default.name || '',
   })
 
   nextTick(() => {

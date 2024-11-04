@@ -3,7 +3,6 @@ import type { RouteRecordRaw } from 'vue-router'
 export default {
   path: '/WarehouseManagement',
   name: 'WarehouseManagement',
-  redirect: '/WarehouseManagement/WarehouseManagement1-1',
   component: () => import('@/layouts/index.vue'),
   meta: {
     title: '仓库管理',

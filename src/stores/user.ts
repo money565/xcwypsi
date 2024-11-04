@@ -1,12 +1,14 @@
-import { loginApi } from '@/api/test'
+import type { Ipermission } from './types/permission'
+import { loginApi, permissionApi } from '@/api/test'
 import { STORAGE_PREFIX, USER } from '@/config/chache'
 
 export const useUserStore = defineStore('user', () => {
   const token = ref('')
   const userInfo = ref<any>(null)
-
+  const permissions = ref<Ipermission>([])
   const getToken = computed(() => token.value)
 
+  // 登录
   function login() {
     return loginApi().then((res) => {
       token.value = res.result.token
@@ -16,7 +18,17 @@ export const useUserStore = defineStore('user', () => {
       // })
     })
   }
-  return { token, userInfo, login, getToken }
+
+  // 获取权限
+  function getPermissions() {
+    return permissionApi().then((res) => {
+      console.log(res)
+      permissions.value = res.result.permissions
+      return permissions.value
+    })
+  }
+
+  return { token, userInfo, login, getToken, getPermissions }
 }, {
   persist: {
     key: `${STORAGE_PREFIX}${USER}`,

@@ -1,4 +1,5 @@
 import type { RouteMeta } from 'vue-router'
+import { useKeepAliveStore } from './keepAlive'
 import router from '@/router'
 
 export interface ITabbarItem {
@@ -24,8 +25,12 @@ export const useTabbarStore = defineStore('tabbar', () => {
   }
   function remove(type: ITabbarRemove, clickIndex: number, activeIndex: number) {
     // 有缓存需要清除缓存
+    const uesKeepAlive = useKeepAliveStore()
     switch (type) {
       case 'self':
+        if (list.value[clickIndex].meta.cache) {
+          uesKeepAlive.remove(list.value[clickIndex].name)
+        }
         if (clickIndex < list.value.length - 1) { // 判断是不是最后一项
           router.push(list.value[clickIndex + 1].fullPath)
         }
@@ -35,23 +40,48 @@ export const useTabbarStore = defineStore('tabbar', () => {
         list.value.splice(clickIndex, 1)
         break
       case 'otherOnce':
+        if (list.value[clickIndex].meta.cache) {
+          uesKeepAlive.remove(list.value[clickIndex].name)
+        }
         list.value.splice(clickIndex, 1)
         break
       case 'left':
+      {
         if (activeIndex < clickIndex)
           router.push(list.value[clickIndex].fullPath)
-        list.value.splice(0, clickIndex)
+        const leftRemoveArr = list.value.splice(0, clickIndex)
+        leftRemoveArr.forEach((item) => {
+          if (item.meta.cache) {
+            uesKeepAlive.remove(item.name)
+          }
+        })
         break
+      }
       case 'right':
+      {
         if (activeIndex > clickIndex)
           router.push(list.value[clickIndex].fullPath)
-        list.value.splice(clickIndex + 1, list.value.length - 1 - clickIndex)
+        const rightRemoveArr = list.value.splice(clickIndex + 1, list.value.length - 1 - clickIndex)
+        rightRemoveArr.forEach((item) => {
+          if (item.meta.cache) {
+            uesKeepAlive.remove(item.name)
+          }
+        })
         break
+      }
       case 'otherAll':
+      {
         if (activeIndex !== clickIndex)
           router.push(list.value[clickIndex].fullPath)
+        const otherAllRemoveArr = list.value.filter(item => item.fullPath !== list.value[clickIndex].fullPath)
+        otherAllRemoveArr.forEach((item) => {
+          if (item.meta.cache) {
+            uesKeepAlive.remove(item.name)
+          }
+        })
         list.value = list.value.filter(item => item.fullPath === list.value[clickIndex].fullPath)
         break
+      }
     }
   }
   return { list, add, remove }

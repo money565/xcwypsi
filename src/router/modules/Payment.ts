@@ -3,7 +3,6 @@ import type { RouteRecordRaw } from 'vue-router'
 export default {
   path: '/Payment',
   name: 'Payment',
-  redirect: '/Payment/Payment-1',
   component: () => import('@/layouts/index.vue'),
   meta: {
     title: '支付管理',

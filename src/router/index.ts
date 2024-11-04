@@ -7,6 +7,7 @@ import { usePermissionStore } from '@/stores/permission'
 import { useAppConfigStore } from '@/stores/app'
 import { useUserStore } from '@/stores/user'
 import useMenus from '@/hooks/useMenus'
+import { useKeepAliveStore } from '@/stores/keepAlive'
 
 const { isLoading } = useNProgress()
 
@@ -81,10 +82,41 @@ router.beforeEach(async (to, from, next) => { // 菜单按钮按下
   }
 })
 
-router.afterEach(() => {
+router.afterEach((to, from) => {
   const useAppConfig = useAppConfigStore()
+  const useKeepAlive = useKeepAliveStore()
   // eslint-disable-next-line ts/no-unused-expressions
   useAppConfig.appConfig.app.enableProgress && (isLoading.value = false)
+  if (to.meta.cache) {
+    const componentName = to.matched[to.matched.length - 1]!.components?.default.name || null
+    if (componentName) {
+      useKeepAlive.add(componentName)
+    }
+    else {
+      console.warn('该路由组件name属性不能为空')
+    }
+  }
+  if (from.meta.cache) {
+    const componentName = from.matched[from.matched.length - 1]!.components?.default.name || null
+    if (componentName) {
+      switch (typeof from.meta.cache) {
+        case 'string':
+          if (from.meta.cache !== to.name) {
+            useKeepAlive.remove(componentName)
+          }
+          break
+        case 'object':
+          if (!from.meta.cache.includes(to.name as string)) {
+            useKeepAlive.remove(componentName)
+          }
+          break
+      }
+      if (to.name === 'reload') {
+        useKeepAlive.remove(componentName)
+      }
+    }
+  }
+
   isLoading.value = false
 })
 export default router

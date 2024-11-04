@@ -3,7 +3,6 @@ import type { RouteRecordRaw } from 'vue-router'
 export default {
   path: '/echartsRouter',
   name: 'echartsRouter',
-  redirect: '/echartsRouter/echartsRouter-1',
   component: () => import('@/layouts/index.vue'),
   meta: {
     title: '数据图表',

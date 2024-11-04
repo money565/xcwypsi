@@ -1,10 +1,11 @@
 <script setup lang="ts">
-
+const input = ref('')
 </script>
 
 <template>
   <div>
-    dialog
+    cache1-2
+    <el-input v-model="input" placeholder="请输入内容" />
   </div>
 </template>
 

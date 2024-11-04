@@ -3,7 +3,6 @@ import type { RouteRecordRaw } from 'vue-router'
 export default {
   path: '/IssueInventory',
   name: 'IssueInventory',
-  redirect: '/IssueInventory/IssueInventory-1',
   component: () => import('@/layouts/index.vue'),
   meta: {
     title: '库存发放',

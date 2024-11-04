@@ -14,6 +14,8 @@ import Audit from './modules/Audit'
 import switchRouter from './modules/switchRouter'
 import echartsRouter from './modules/echartsRouter'
 import ai from './modules/ai'
+import cacheRoutes from './modules/cache'
+import userManage from './modules/userManage'
 
 import type { IPrivateRoutes } from './types/privateRoutes'
 
@@ -27,6 +29,11 @@ const privateRoutes: IPrivateRoutes[] = [
     title: '数据',
     icon: 'demo2',
     children: [echartsRouter, ai, switchRouter],
+  },
+  {
+    title: '系统',
+    icon: 'system',
+    children: [cacheRoutes, userManage],
   },
 ]
 

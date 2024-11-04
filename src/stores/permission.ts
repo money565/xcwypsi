@@ -1,10 +1,49 @@
 import type { RouteRecordRaw } from 'vue-router'
 import cloneDeep from 'lodash/cloneDeep'
 import { useAppConfigStore } from './app'
+import { useUserStore } from './user'
+import type { Ipermission } from './types/permission'
 import constantRouter from '@/router/constant'
 import privateRoutes from '@/router/privateRoutes'
 import type { IPrivateRoutes } from '@/router/types/privateRoutes'
 import { isEmpty } from '@/utils'
+
+function hasPermission(permission: Ipermission, route: RouteRecordRaw) {
+  let isAuth = false
+  if (route.meta?.auth) {
+    isAuth = permission.some((auth) => {
+      if (typeof route.meta?.auth === 'string') {
+        return route.meta.auth === auth
+      }
+      else {
+        return route.meta?.auth?.includes(auth)
+      }
+    })
+  }
+  else {
+    isAuth = true
+  }
+  return isAuth
+}
+
+function filterPrivateRoutes(routes: RouteRecordRaw[], permission: Ipermission) {
+  const res = [] as RouteRecordRaw[]
+  routes.forEach((route) => {
+    const tempRoute = cloneDeep(route)
+    if (hasPermission(permission, tempRoute)) {
+      console.log('有权限')
+      if (tempRoute.children) {
+        tempRoute.children = filterPrivateRoutes(tempRoute.children, permission)
+        // eslint-disable-next-line ts/no-unused-expressions
+        tempRoute.children.length && res.push(tempRoute)
+      }
+      else {
+        res.push(tempRoute)
+      }
+    }
+  })
+  return res
+}
 
 function addPrivateChildrenIndex(privateChildrenRoutes: RouteRecordRaw[], parentIndex: number) {
   privateChildrenRoutes.forEach((item) => {
@@ -14,6 +53,7 @@ function addPrivateChildrenIndex(privateChildrenRoutes: RouteRecordRaw[], parent
     }
   })
 }
+
 function addPrivateIndex(clonePrivateRoutes: IPrivateRoutes[]) {
   clonePrivateRoutes.forEach((item, i) => {
     item.parentIndex = i
@@ -51,11 +91,20 @@ export const usePermissionStore = defineStore('permission', () => {
 
   function filterPermissionRoutes(): Promise<RouteRecordRaw[]> { // 过滤权限路由
     const useAppConfig = useAppConfigStore()
-    return new Promise((reslove, reject) => {
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (reslove, reject) => {
       try {
         let routes: RouteRecordRaw[] = []
         if (useAppConfig.getEnablePermission) {
-        // TODDO:按权限过滤路由
+          const useUser = useUserStore()
+          if (useAppConfig.appConfig.app.routeMode === 'backend') {
+            // .
+          }
+          else {
+            const permission = await useUser.getPermissions()
+            console.log(permission)
+            routes = filterPrivateRoutes(allPrivateChildrenRoutes.value, permission)
+          }
         }
         else {
           routes = [...allPrivateChildrenRoutes.value]
