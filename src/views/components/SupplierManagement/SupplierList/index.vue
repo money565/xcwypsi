@@ -3,6 +3,7 @@ defineOptions({
   name: 'SupplierList',
 })
 const router = useRouter()
+const route = useRoute()
 interface User {
   index: number
   name: string
@@ -11,8 +12,17 @@ interface User {
   amount: number
   rank: number
 }
+
+const notShowChild = computed(() => {
+  console.log(route)
+  if (route.name === 'supplierList') {
+    return true
+  }
+  else {
+    return false
+  }
+})
 function handleClick(row: any) {
-  console.log(row)
   router.push({
     name: 'supplierDetail',
     query: {
@@ -72,7 +82,7 @@ const tableData: User[] = [
 </script>
 
 <template>
-  <div class="p-5">
+  <div v-if="notShowChild" class="p-5">
     <div>供应商列表</div>
     <el-table
       :data="tableData"
@@ -107,6 +117,7 @@ const tableData: User[] = [
       </el-table-column>
     </el-table>
   </div>
+  <router-view v-if="!notShowChild" />
 </template>
 
 <style lang="scss">

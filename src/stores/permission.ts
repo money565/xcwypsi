@@ -31,7 +31,6 @@ function filterPrivateRoutes(routes: RouteRecordRaw[], permission: Ipermission) 
   routes.forEach((route) => {
     const tempRoute = cloneDeep(route)
     if (hasPermission(permission, tempRoute)) {
-      console.log('有权限')
       if (tempRoute.children) {
         tempRoute.children = filterPrivateRoutes(tempRoute.children, permission)
         // eslint-disable-next-line ts/no-unused-expressions
@@ -102,7 +101,6 @@ export const usePermissionStore = defineStore('permission', () => {
           }
           else {
             const permission = await useUser.getPermissions()
-            console.log(permission)
             routes = filterPrivateRoutes(allPrivateChildrenRoutes.value, permission)
           }
         }

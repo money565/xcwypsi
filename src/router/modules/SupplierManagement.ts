@@ -17,21 +17,22 @@ export default {
       cache: true,
     },
   }, {
-    path: 'supplierList',
+    path: '/SupplierManagement/supplierList',
     name: 'supplierList',
     component: () => import('@/views/components/SupplierManagement/SupplierList/index.vue'),
     meta: {
       title: '供应商列表',
     },
-  }, {
-    path: 'supplierDetail',
-    name: 'supplierDetail',
-    component: () => import('@/views/components/SupplierManagement/SupplierList/detail.vue'),
-    meta: {
-      title: '供应商详情',
-      hideInMenu: true,
-      hideInSearch: true,
-      activeMenu: '/SupplierManagement/supplierList',
-    },
+    children: [{
+      path: '/SupplierManagement/supplierList/supplierDetail',
+      name: 'supplierDetail',
+      component: () => import('@/views/components/SupplierManagement/SupplierList/detail.vue'),
+      meta: {
+        title: '供应商详情',
+        hideInMenu: true,
+        hideInSearch: true,
+        activeMenu: '/SupplierManagement/supplierList',
+      },
+    }],
   }],
 } as RouteRecordRaw
