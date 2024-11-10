@@ -1,5 +1,8 @@
 import type { Ipermission } from './types/permission'
-import { loginApi, permissionApi } from '@/api/test'
+import { useTabbarStore } from './tabbar'
+import { usePermissionStore } from './permission'
+import { useKeepAliveStore } from './keepAlive'
+import { logOutApi, loginApi, permissionApi } from '@/api/test'
 import { STORAGE_PREFIX, USER } from '@/config/chache'
 
 export const useUserStore = defineStore('user', () => {
@@ -7,7 +10,14 @@ export const useUserStore = defineStore('user', () => {
   const userInfo = ref<any>(null)
   const permissions = ref<Ipermission>([])
   const getToken = computed(() => token.value)
-
+  function init() {
+    token.value = ''
+    userInfo.value = null
+    permissions.value = []
+    useTabbarStore().init()
+    usePermissionStore().init()
+    useKeepAliveStore().init()
+  }
   // 登录
   function login() {
     return loginApi().then((res) => {
@@ -16,6 +26,13 @@ export const useUserStore = defineStore('user', () => {
       // LocalStorageService.set(USER, {
       //   token: token.value,
       // })
+    })
+  }
+
+  // 退出登录
+  function logout() {
+    return logOutApi().then(() => {
+      init()
     })
   }
 
@@ -28,7 +45,7 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
-  return { token, userInfo, login, getToken, getPermissions }
+  return { token, userInfo, login, logout, getToken, getPermissions, permissions }
 }, {
   persist: {
     key: `${STORAGE_PREFIX}${USER}`,

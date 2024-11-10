@@ -84,6 +84,11 @@ export const usePermissionStore = defineStore('permission', () => {
     // return routes
   })
 
+  function init() {
+    routes.value = []
+    mainMenuActive.value = 0
+  }
+
   function setRoutes(needDynamicallyAddRoutes: RouteRecordRaw[]) {
     routes.value = [...constantRouter, ...needDynamicallyAddRoutes] // 合并路由
   }
@@ -121,5 +126,5 @@ export const usePermissionStore = defineStore('permission', () => {
   }
 
   const subMenuActive = ref()
-  return { routes, filterPermissionRoutes, mainMenuActive, subMenuActive, addIndexPrivateRoutes, changeMainMenu }
+  return { routes, filterPermissionRoutes, mainMenuActive, subMenuActive, addIndexPrivateRoutes, changeMainMenu, init }
 })

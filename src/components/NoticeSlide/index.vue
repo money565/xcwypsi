@@ -29,12 +29,14 @@ const notice = computed(() => {
 
 function scollMove() {
   timer.value = setTimeout(() => {
+    // eslint-disable-next-line ts/no-unused-expressions
     curIndex.value === props.list.length - 1 ? curIndex.value = 0 : curIndex.value++
     scollMove()
   }, props.duration)
 }
 
 function mouseEnter() {
+  // eslint-disable-next-line ts/no-unused-expressions
   timer.value && clearTimeout(timer.value)
 }
 

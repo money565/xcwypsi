@@ -18,6 +18,10 @@ export function loginApi() {
   return get<IDemo<IResult>>('/testLogin')
 }
 
+export function logOutApi() {
+  return get<IDemo<IResult>>('/logout')
+}
+
 export function permissionApi() {
   return get<IDemo<IResult>>('/user/permission')
 }

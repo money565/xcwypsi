@@ -3,6 +3,7 @@ import ElementPlus from 'element-plus'
 import pinia from './stores'
 import App from './App.vue'
 import router from './router'
+import directive from './utils/directive'
 
 import 'virtual:svg-icons-register'
 import 'virtual:uno.css'
@@ -13,5 +14,6 @@ const app = createApp(App)
 app.use(ElementPlus)
 app.use(router)
 app.use(pinia)
+directive(app)
 
 app.mount('#app')

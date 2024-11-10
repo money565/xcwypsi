@@ -17,7 +17,13 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  bs.value.destroyed()
+  try {
+    bs.value.destroyed()
+  }
+  // eslint-disable-next-line unused-imports/no-unused-vars
+  catch (e) {
+    console.log('已退出')
+  }
 })
 
 const useAppConfig = useAppConfigStore()

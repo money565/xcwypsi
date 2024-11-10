@@ -9,6 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     Ai: typeof import('./../src/views/components/ai/index.vue')['default']
     Audit: typeof import('./../src/views/components/Audit/index.vue')['default']
+    Auth: typeof import('./../src/components/Auth/index.vue')['default']
+    AuthAll: typeof import('./../src/components/AuthAll/index.vue')['default']
     Cache1: typeof import('./../src/views/cache/cache1.vue')['default']
     Cache12: typeof import('./../src/views/cache/cache1-2.vue')['default']
     Cache2: typeof import('./../src/views/cache/cache2.vue')['default']
@@ -26,6 +28,7 @@ declare module 'vue' {
     OrdersList: typeof import('./../src/views/components/OrdersList/index.vue')['default']
     Outbound: typeof import('./../src/views/components/Outbound/index.vue')['default']
     Payment: typeof import('./../src/views/components/Payment/index.vue')['default']
+    Personal: typeof import('./../src/views/personal/index.vue')['default']
     PlanPurchase: typeof import('./../src/views/components/PlanPurchase/index.vue')['default']
     Procure: typeof import('./../src/views/components/Procure/index.vue')['default']
     Records: typeof import('./../src/views/components/Records/index.vue')['default']

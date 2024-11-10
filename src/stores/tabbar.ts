@@ -84,5 +84,9 @@ export const useTabbarStore = defineStore('tabbar', () => {
       }
     }
   }
-  return { list, add, remove }
+
+  function init() {
+    list.value = []
+  }
+  return { list, add, remove, init }
 })

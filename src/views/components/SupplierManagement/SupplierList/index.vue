@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import auth from '@/components/Auth/index.vue'
+
 defineOptions({
   name: 'SupplierList',
 })
@@ -84,6 +86,20 @@ const tableData: User[] = [
 <template>
   <div v-if="notShowChild" class="p-5">
     <div>供应商列表</div>
+    <el-button v-auth="'user.read'" type="primary" size="small">
+      创建供应商
+    </el-button>
+
+    <auth value="user.read1">
+      <el-button type="primary">
+        删除
+      </el-button>
+      <template #no-auth>
+        <el-button type="primary" disabled>
+          删除
+        </el-button>
+      </template>
+    </auth>
     <el-table
       :data="tableData"
       style="width: 100%"
