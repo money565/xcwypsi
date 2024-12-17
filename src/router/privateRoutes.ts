@@ -16,14 +16,23 @@ import echartsRouter from './modules/echartsRouter'
 import ai from './modules/ai'
 import cacheRoutes from './modules/cache'
 import userManage from './modules/userManage'
+import FixedAsset from './modules/FixedAsset'
+import LowValueAsset from './modules/LowValueAsset'
+import ReuseMaterial from './modules/ReuseMaterial'
+import SystemSetting from './modules/SystemSetting'
 
 import type { IPrivateRoutes } from './types/privateRoutes'
 
 const privateRoutes: IPrivateRoutes[] = [
   {
-    title: '业务',
+    title: '基本',
+    icon: 'baseData',
+    children: [SupplierManagement, WarehouseManagement, MaterialManagement],
+  },
+  {
+    title: '存货',
     icon: 'demo',
-    children: [SupplierManagement, WarehouseManagement, MaterialManagement, Procure, Audit, PlanPurchase, OrdersList, Outbound, Records, WarehouseStock, IssueInventory, Payment],
+    children: [Procure, Audit, PlanPurchase, OrdersList, Outbound, Records, WarehouseStock, IssueInventory, Payment],
   },
   {
     title: '数据',
@@ -31,9 +40,20 @@ const privateRoutes: IPrivateRoutes[] = [
     children: [echartsRouter, ai, switchRouter],
   },
   {
-    title: '系统',
+    title: '资产',
+    icon: 'device',
+    children: [FixedAsset, LowValueAsset],
+  },
+
+  {
+    title: '旧物',
+    icon: 'reuse',
+    children: [ReuseMaterial],
+  },
+  {
+    title: '设置',
     icon: 'system',
-    children: [cacheRoutes, userManage],
+    children: [cacheRoutes, userManage, SystemSetting],
   },
 ]
 
